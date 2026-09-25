@@ -1,10 +1,12 @@
 name: lint and test flask app
-on: [push] # sur n'importe quelle branche
+# sur n'importe quelle branche
+on: [push]
 jobs:
   lint:
   runs-on: ubuntu-latest
   steps:
-    - uses: actions/checkout@v4 # Celui gui fait un "git pull" au sein du runner 
+    # Celui gui fait un "git pull" au sein du runner 
+    - uses: actions/checkout@v4
     - name: Setup python
       uses: actions/setup-python@v4
       with:
