@@ -1,0 +1,16 @@
+import pytest
+from app import app
+
+@pytest.fixture
+def client_app():
+    with app.test_client()  as client:
+        with app.app_context():
+            yield client
+
+def test_helth(client_app):
+    res = client_app.get("/helth")
+    assert res.status_code == 200
+
+def test_hello(client_app):
+    res = client_app.get("/hello")
+    assert res.status_code == 200
