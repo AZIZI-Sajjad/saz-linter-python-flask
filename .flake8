@@ -1,4 +1,4 @@
 [flake8]
 max-line-lenght = 88
-ignore = E203, W5.3, E302, E305
+ignore = E203, W503, E302, E305
 exclude = migrations, venv
