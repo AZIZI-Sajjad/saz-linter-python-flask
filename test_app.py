@@ -3,7 +3,7 @@ from app import app
 
 @pytest.fixture
 def client_app():
-    with app.test_client()  as client:
+    with app.test_client() as client:
         with app.app_context():
             yield client
 
