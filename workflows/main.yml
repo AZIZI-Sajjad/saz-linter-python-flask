@@ -15,7 +15,7 @@ jobs: # début de sjobs
         run: flake8 .
   
   test:
-    runs-on: ubunut-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup python
