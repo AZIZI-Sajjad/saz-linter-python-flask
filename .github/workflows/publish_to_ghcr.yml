@@ -3,7 +3,7 @@ name: Docker Publish to GHCR # Nom du workflow affiché dans l'onglet Actions
 on:
   workflow_dispatch: # Lancement manuel depuis l'interface GitHub
   workflow_run: # Lancement après la fin d'un autre workflow
-  workflow: ["lint and test flask app"] # Workflow parent à surveiller
+  workflows: ["lint and test flask app"] # Workflow parent à surveiller
   types:
     - completed # Déclenché à la fin du workflow parent, succès ou échec
 
