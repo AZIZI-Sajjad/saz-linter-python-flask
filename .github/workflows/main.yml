@@ -40,6 +40,8 @@ jobs: # début de sjobs
       - name: Test Container response
         run: |
           sleep 5
+          docker ps
+          ss -tulpn | grep 5000
           curl -f http://localhost:5000/health
       - name: Stop and remove container
         run: |
