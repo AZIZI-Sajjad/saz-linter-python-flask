@@ -8,7 +8,7 @@ def client_app():
             yield client
 
 def test_helth(client_app):
-    res = client_app.get("/helth")
+    res = client_app.get("/health")
     assert res.status_code == 200
 
 def test_hello(client_app):
