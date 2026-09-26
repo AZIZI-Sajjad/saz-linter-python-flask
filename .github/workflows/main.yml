@@ -34,7 +34,7 @@ jobs: # début de sjobs
     steps:
       - uses: actions/checkout@v4
       - name: Build Docker Image
-        rune: docker build -t monapp:latest
+        run: docker build -t monapp:latest .
       - name: Run Docker container
         run: docker run -d -name:monapp_test -p 5000:5000 monapp:latest
       - name: Test Container response
