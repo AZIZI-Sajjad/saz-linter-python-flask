@@ -40,6 +40,8 @@ jobs: # début de sjobs
           docker build -t monapp:latest .
       - name: Run Docker container
         run: docker run -d --name monapp_test -p 5000:5000 monapp:latest
+      - name: Check Container Status
+        run: docker ps --filter name==monapp_test
       - name: Test Container response
         run: |
           sleep 5
