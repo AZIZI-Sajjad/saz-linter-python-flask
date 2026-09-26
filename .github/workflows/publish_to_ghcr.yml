@@ -18,7 +18,7 @@ jobs:
         with:
           registry: ghcr.io # Registre de Github, ça peut être un autre registry on-premise ou bin ed'autre type de registry
           username: ${{ github.actor }} # le nom du compte GitHub qui a déclenché le workflow.
-          password: ${{ secret.GITHUB_TOKEN }} # Jeton temporaire généré automatiquement par GitHub pour ce job
+          password: ${{ secrets.GITHUB_TOKEN }} # Jeton temporaire généré automatiquement par GitHub pour ce job
 
       - name: Build Docker Image
         run: docker build -t ghcr.io/azizi-sajjad/saz-linter-python-flask/monapp:latest . # Construit l'image à partir du Dockerfile
