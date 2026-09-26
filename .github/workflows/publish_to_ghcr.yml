@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@7 # Récupère le code du dépôt sur le runner
       - name: Docker login to GHCR
-        uses: docker/login-action@v7 # Connexion au registery de container de Github
+        uses: docker/login-action@v4 # Connexion au registery de container de Github
         with:
           registry: ghcr.io # Registre de Github, ça peut être un autre registry on-premise ou bin ed'autre type de registry
           username: ${{ github.actor }} # le nom du compte GitHub qui a déclenché le workflow.
