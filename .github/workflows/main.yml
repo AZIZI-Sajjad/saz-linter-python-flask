@@ -1,19 +1,17 @@
 name: lint and test flask app
-# sur n'importe quelle branche
-on: [push]
-jobs:
+on: [push] # sur n'importe quelle branche
+jobs: # début de sjobs
   lint:
     runs-on: ubuntu-latest
     steps:
-      # Celui gui fait un "git pull" au sein du runner 
-      - uses: actions/checkout@v4
-      - name: Setup python
+      - uses: actions/checkout@v4 # Celui gui fait un "git pull" au sein du runner
+      - name: Setup python # Action fournie par githubactions catalogue pour setpup le python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
-      - name: install dependencies
+          python-version: "3.10" # si on mets 3.10 sans double côte, des versions comme 3.10 2.10 seront prise en compte comme 3.1 & 2.1
+      - name: install dependencies # installer les prérequis
         run: pip install -r requirements.txt flake8
-      - name: run flake 8
+      - name: run flake 8 # Lancer le teste Lint
         run: flake8 .
   
   test:
@@ -28,5 +26,5 @@ jobs:
         run: pip install -r requirements.txt 
       - name: run tests
         run: pytest
-    needs: lint
+    needs: lint # Définir la dépendace, ce job se lencera après la dépendance, c'est à dire, le job test se lance après le job lint
         
