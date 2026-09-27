@@ -1,0 +1,35 @@
+services:
+  api-python:
+    image: ghcr.io/azizi-sajjad/saz-linter-python-flask/monapp:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - ENV=test
+      - DB_USER=testuser
+      - DB_PASSWORD=testpass
+      - DB_NAME=testdb
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      db:
+        condition: service_healthy # Le container api-python ne va pas démarrer tant que le containe rdb n'est pas complètement en cours d'exécution : service_healthy
+  
+  db:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+      POSTGRES_DB: testdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data-test:/var/lib/postgresql/data
+    healthcheck: # On définit la commande permettant de définir l'état de santé de postgreSQL, qui sera utilisé dans la ligne 15 
+      test: ["CMD-SHELL", "pg_isready -U testuser -d testdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  db-data-test:

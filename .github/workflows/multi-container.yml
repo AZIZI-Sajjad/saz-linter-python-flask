@@ -1,0 +1,51 @@
+name: test multi container
+
+on:
+  workflow_dispatch: # Lancement manuel depuis l'interface GitHub
+  workflow_run: # Lancement après la fin d'un autre workflow
+    workflows: ["Docker Publish to GHCR"] # Workflow parent à surveiller
+    types:
+      - completed # Déclenché à la fin du workflow parent, succès ou échec
+
+jobs:
+  docker-compose-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7 # Récupère le code du dépôt sur le runner
+      - name:  Set up Docker buildx
+      - name: docker/setup-buildx-action@v4
+
+      - name: start docker compose services
+        run: start docker compose up --build -d 
+
+      - name: wait for api to be ready
+        run: |
+          for in in {1..10}; do
+            if curl  -fs http://localhost:5000/health; then
+              echo 'API is ready'
+              break
+            fi
+            echo "waiting for the api"
+            wait 3
+          done
+
+      - name : container status
+        run: docker ps
+
+      - name: check connection
+        run: curl -v http://lcalhost:5000/dbtest
+
+      - name: Setup python
+        uses: action/setup-python@v7
+        aith:
+          python-version: "3.10"
+      
+      - name: Install dependencies
+        run: docker exec saz-linter-python-flask-api-python-1 pip install -r requirements.txt
+
+      - name: run test integration
+        run: docker exec saz-linter-python-flask-api-python-1 pytest -m integration
+
+      - name: stop and remove container
+        run: docker compose down
