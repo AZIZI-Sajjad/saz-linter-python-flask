@@ -25,9 +25,19 @@ jobs: # début de sjobs
       - name: install dependencies
         run: pip install -r requirements.txt 
       - name: run tests
-        run: pytest
+        run: pytest -m "not integration"      
+        # "run" exécute la commande dans le shell de la machine Ubuntu
+        # pytest : lance les tests trouvés dans les fichiers test_*.py (ex : test_app.py)
+        # -m : filtre les tests selon leur marker
+        # "not integration" : exclut les tests marqués @pytest.mark.integration
+        # -> test_health et test_hello s'exécutent
+        # -> test_dbtest est ignoré (il a besoin de la BDD via Docker Compose)
+        # test_app.py : @pytest.mark.integration :
+          # mark = marquage
+          # marque = integration
+
     needs: lint # Définir la dépendace, ce job se lencera après la dépendance, c'est à dire, le job test se lance après le job lint
-        
+  
   docker-test:
     runs-on: ubuntu-latest
     needs: test
