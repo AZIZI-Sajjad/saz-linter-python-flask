@@ -1,0 +1,11 @@
+# Clé API : 
+# Account's Settings -> API Keys -> Create API KEY
+# Name : Nom
+# Récupérer la clé API
+# Récupérer le Owner ID avec une API en Shell: 
+APIKEY="rnd_xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+curl --request GET --url https://api.render.com/v1/owners --header "accept: application/json" --header "authorization: Bearer $APIKEY"
+[{"cursor":"WqskZ-yyyyyyyyyyyyyyyyyyyyyyyyyy","owner":{"email":"mailexemple@domaine.com","id":"tea-qqqqqqqqqqqqqqqqqqqq","name":"Name's workspace","type":"team"}}]
+
+api_key=""
+owner_id=""
