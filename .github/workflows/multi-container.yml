@@ -37,7 +37,7 @@ jobs:
         run: curl -v http://localhost:5000/dbtest
 
       - name: Setup python
-        uses: action/setup-python@v7
+        uses: action/setup-python@v7S
         aith:
           python-version: "3.10"
       
