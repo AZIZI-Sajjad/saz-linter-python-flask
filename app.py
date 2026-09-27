@@ -19,14 +19,14 @@ def hello():
     return jsonify({"message": "Hello World"})
 
 def get_db_conneciotn():
-        conn = psycopg2.connect(
-            host=DB_HOST,
-            port=DB_PORT,
-            dbname=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD
-        )
-        return conn
+    conn = psycopg2.connect(
+        host=DB_HOST,
+        port=DB_PORT,
+        dbname=DB_NAME,
+        user=DB_USER,
+        password=DB_PASSWORD
+    )
+    return conn
 
 @app.route("/dbtest")
 def db_test():
